@@ -529,3 +529,6 @@ class cube(object):
 
 
         cip = fig.canvas.mpl_connect('key_press_event', lambda event: self.__button_press(event, ax))
+
+    def get_move_set(self):
+        return self.move_set
