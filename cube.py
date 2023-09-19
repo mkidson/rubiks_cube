@@ -305,22 +305,34 @@ class cube(object):
         self.curr_state = np.matmul(self.curr_state, self.S_turn.T)
     
     def X(self):
-        self.curr_state = self.L_prime(self.M_prime(self.R()))
+        self.L_prime()
+        self.M_prime()
+        self.R()
     
     def X_prime(self):
-        self.curr_state = self.L(self.M(self.R_prime()))
+        self.L()
+        self.M()
+        self.R_prime()
 
     def Y(self):
-        self.curr_state = self.D_prime(self.E_prime(self.U()))
+        self.D_prime()
+        self.E_prime()
+        self.U()
 
     def Y_prime(self):
-        self.curr_state = self.D(self.E(self.U_prime()))
+        self.D()
+        self.E()
+        self.U_prime()
 
     def Z(self):
-        self.curr_state = self.B_prime(self.S(self.F()))
+        self.B_prime()
+        self.S()
+        self.F()
 
     def Z_prime(self):
-        self.curr_state = self.B(self.S_prime(self.F_prime()))
+        self.B()
+        self.S_prime()
+        self.F_prime()
 
 #endregion
 
