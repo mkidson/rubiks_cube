@@ -14,6 +14,8 @@ class cube(object):
     green_face =  np.full((9), 5)
     colours = ['white', 'yellow', 'red', 'orange', 'blue', 'green']
 
+    move_list = ["F", "F'", "F2", "B", "B'", "B2", "U", "U'", "U2", "D", "D'", "D2", "R", "R'", "R2", "L", "L'", "L2", "M", "M'", "M2", "E", "E'", "E2", "S", "S'", "S2"]
+
     def __init__(self):
 
         # 1x54 arrays saving state of the cube
@@ -232,78 +234,240 @@ class cube(object):
 
 
 #region turn function definitions
-    def F(self):
-        
-        self.curr_state = np.matmul(self.curr_state, self.F_turn)
+    def F(self, prospective=False, state=np.array([]), return_state=False):
 
-    def F_prime(self):
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
 
-        self.curr_state = np.matmul(self.curr_state, self.F_turn.T)
-    
-    def B(self):
-        
-        self.curr_state = np.matmul(self.curr_state, self.B_turn)
+        if prospective:
+            return np.copy(np.matmul(state, self.F_turn))
+        else:
+            self.curr_state = np.matmul(state, self.F_turn)
+            self.move_set.append("F")
+            if return_state:
+                return self.get_curr_state()  
 
-    def B_prime(self):
+    def F_prime(self, prospective=False, state=np.array([]), return_state=False):
 
-        self.curr_state = np.matmul(self.curr_state, self.B_turn.T)
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
 
-    def U(self):
-        
-        self.curr_state = np.matmul(self.curr_state, self.U_turn)
+        if prospective:
+            return np.copy(np.matmul(state, self.F_turn.T))
+        else:
+            self.curr_state = np.matmul(state, self.F_turn.T)
+            self.move_set.append("F'")
+            if return_state:
+                return self.get_curr_state()
+                 
+    def B(self, prospective=False, state=np.array([]), return_state=False):
 
-    def U_prime(self):
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
 
-        self.curr_state = np.matmul(self.curr_state, self.U_turn.T)
-    
-    def D(self):
-        
-        self.curr_state = np.matmul(self.curr_state, self.D_turn)
+        if prospective:
+            return np.copy(np.matmul(state, self.B_turn))
+        else:
+            self.curr_state = np.matmul(state, self.B_turn)
+            self.move_set.append("B")
+            if return_state:
+                return self.get_curr_state()
+            
+    def B_prime(self, prospective=False, state=np.array([]), return_state=False):
 
-    def D_prime(self):
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
 
-        self.curr_state = np.matmul(self.curr_state, self.D_turn.T)
-    
-    def R(self):
-        
-        self.curr_state = np.matmul(self.curr_state, self.R_turn)
+        if prospective:
+            return np.copy(np.matmul(state, self.B_turn.T))
+        else:
+            self.curr_state = np.matmul(state, self.B_turn.T)
+            self.move_set.append("B'")
+            if return_state:
+                return self.get_curr_state()
+            
+    def U(self, prospective=False, state=np.array([]), return_state=False):
 
-    def R_prime(self):
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
 
-        self.curr_state = np.matmul(self.curr_state, self.R_turn.T)
-    
-    def L(self):
-        
-        self.curr_state = np.matmul(self.curr_state, self.L_turn)
+        if prospective:
+            return np.copy(np.matmul(state, self.U_turn))
+        else:
+            self.curr_state = np.matmul(state, self.U_turn)
+            self.move_set.append("U")
+            if return_state:
+                return self.get_curr_state()
+            
+    def U_prime(self, prospective=False, state=np.array([]), return_state=False):
 
-    def L_prime(self):
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
 
-        self.curr_state = np.matmul(self.curr_state, self.L_turn.T)
-    
-    def M(self):
-        
-        self.curr_state = np.matmul(self.curr_state, self.M_turn)
+        if prospective:
+            return np.copy(np.matmul(state, self.U_turn.T))
+        else:
+            self.curr_state = np.matmul(state, self.U_turn.T)
+            self.move_set.append("U'")
+            if return_state:
+                return self.get_curr_state()
+            
+    def D(self, prospective=False, state=np.array([]), return_state=False):
 
-    def M_prime(self):
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
 
-        self.curr_state = np.matmul(self.curr_state, self.M_turn.T)
-    
-    def E(self):
-        
-        self.curr_state = np.matmul(self.curr_state, self.E_turn)
+        if prospective:
+            return np.copy(np.matmul(state, self.D_turn))
+        else:
+            self.curr_state = np.matmul(state, self.D_turn)
+            self.move_set.append("D")
+            if return_state:
+                return self.get_curr_state()
+            
+    def D_prime(self, prospective=False, state=np.array([]), return_state=False):
 
-    def E_prime(self):
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
 
-        self.curr_state = np.matmul(self.curr_state, self.E_turn.T)
-    
-    def S(self):
-        
-        self.curr_state = np.matmul(self.curr_state, self.S_turn)
+        if prospective:
+            return np.copy(np.matmul(state, self.D_turn.T))
+        else:
+            self.curr_state = np.matmul(state, self.D_turn.T)
+            self.move_set.append("D'")
+            if return_state:
+                return self.get_curr_state()
+            
+    def R(self, prospective=False, state=np.array([]), return_state=False):
 
-    def S_prime(self):
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
 
-        self.curr_state = np.matmul(self.curr_state, self.S_turn.T)
-    
+        if prospective:
+            return np.copy(np.matmul(state, self.R_turn))
+        else:
+            self.curr_state = np.matmul(state, self.R_turn)
+            self.move_set.append("R")
+            if return_state:
+                return self.get_curr_state()
+            
+    def R_prime(self, prospective=False, state=np.array([]), return_state=False):
+
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
+
+        if prospective:
+            return np.copy(np.matmul(state, self.R_turn.T))
+        else:
+            self.curr_state = np.matmul(state, self.R_turn.T)
+            self.move_set.append("R'")
+            if return_state:
+                return self.get_curr_state()
+            
+    def L(self, prospective=False, state=np.array([]), return_state=False):
+
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
+
+        if prospective:
+            return np.copy(np.matmul(state, self.L_turn))
+        else:
+            self.curr_state = np.matmul(state, self.L_turn)
+            self.move_set.append("L")
+            if return_state:
+                return self.get_curr_state()
+            
+    def L_prime(self, prospective=False, state=np.array([]), return_state=False):
+
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
+
+        if prospective:
+            return np.copy(np.matmul(state, self.L_turn.T))
+        else:
+            self.curr_state = np.matmul(state, self.L_turn.T)
+            self.move_set.append("L'")
+            if return_state:
+                return self.get_curr_state()
+            
+    def M(self, prospective=False, state=np.array([]), return_state=False):
+
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
+
+        if prospective:
+            return np.copy(np.matmul(state, self.M_turn))
+        else:
+            self.curr_state = np.matmul(state, self.M_turn)
+            self.move_set.append("M")
+            if return_state:
+                return self.get_curr_state()
+            
+    def M_prime(self, prospective=False, state=np.array([]), return_state=False):
+
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
+
+        if prospective:
+            return np.copy(np.matmul(state, self.M_turn.T))
+        else:
+            self.curr_state = np.matmul(state, self.M_turn.T)
+            self.move_set.append("M'")
+            if return_state:
+                return self.get_curr_state()
+            
+    def E(self, prospective=False, state=np.array([]), return_state=False):
+
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
+
+        if prospective:
+            return np.copy(np.matmul(state, self.E_turn))
+        else:
+            self.curr_state = np.matmul(state, self.E_turn)
+            self.move_set.append("E")
+            if return_state:
+                return self.get_curr_state()
+            
+    def E_prime(self, prospective=False, state=np.array([]), return_state=False):
+
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
+
+        if prospective:
+            return np.copy(np.matmul(state, self.E_turn.T))
+        else:
+            self.curr_state = np.matmul(state, self.E_turn.T)
+            self.move_set.append("E'")
+            if return_state:
+                return self.get_curr_state()
+            
+    def S(self, prospective=False, state=np.array([]), return_state=False):
+
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
+
+        if prospective:
+            return np.copy(np.matmul(state, self.S_turn))
+        else:
+            self.curr_state = np.matmul(state, self.S_turn)
+            self.move_set.append("S")
+            if return_state:
+                return self.get_curr_state()
+            
+    def S_prime(self, prospective=False, state=np.array([]), return_state=False):
+
+        if len(state) == 0:
+            state = np.copy(self.curr_state)
+
+        if prospective:
+            return np.copy(np.matmul(state, self.S_turn.T))
+        else:
+            self.curr_state = np.matmul(state, self.S_turn.T)
+            self.move_set.append("S'")
+            if return_state:
+                return self.get_curr_state()  
+                
     def X(self):
         self.L_prime()
         self.M_prime()
@@ -542,5 +706,207 @@ class cube(object):
 
         cip = fig.canvas.mpl_connect('key_press_event', lambda event: self.__button_press(event, ax))
 
-    def get_move_set(self):
+    def get_moved_set(self):
         return self.move_set
+    
+    def get_curr_state(self):
+        return np.copy(self.curr_state)
+    
+    def get_move_list(self):
+        return self.move_list
+    
+    def string_operation(self, str, prospective=False, return_state=False):
+
+        input_arr = str.split(" ")
+
+        if prospective:
+            new_state = self.get_curr_state()
+            for i in input_arr:
+                if i == "F":
+                    new_state = self.F(True, new_state)
+
+                elif i == "F'":
+                    new_state = self.F_prime(True, new_state)
+
+                elif i == "F2":
+                    new_state = self.F(True, new_state)
+                    new_state = self.F(True, new_state)
+                
+                elif i == "B":
+                    new_state = self.B(True, new_state)
+
+                elif i == "B'":
+                    new_state = self.B_prime(True, new_state)
+
+                elif i == "B2":
+                    new_state = self.B(True, new_state)
+                    new_state = self.B(True, new_state)
+                
+                elif i == "U":
+                    new_state = self.U(True, new_state)
+
+                elif i == "U'":
+                    new_state = self.U_prime(True, new_state)
+
+                elif i == "U2":
+                    new_state = self.U(True, new_state)
+                    new_state = self.U(True, new_state)
+                
+                elif i == "D":
+                    new_state = self.D(True, new_state)
+
+                elif i == "D'":
+                    new_state = self.D_prime(True, new_state)
+
+                elif i == "D2":
+                    new_state = self.D(True, new_state)
+                    new_state = self.D(True, new_state)
+                
+                elif i == "R":
+                    new_state = self.R(True, new_state)
+
+                elif i == "R'":
+                    new_state = self.R_prime(True, new_state)
+
+                elif i == "R2":
+                    new_state = self.R(True, new_state)
+                    new_state = self.R(True, new_state)
+                
+                elif i == "L":
+                    new_state = self.L(True, new_state)
+
+                elif i == "L'":
+                    new_state = self.L_prime(True, new_state)
+
+                elif i == "L2":
+                    new_state = self.L(True, new_state)
+                    new_state = self.L(True, new_state)
+                
+                elif i == "M":
+                    new_state = self.M(True, new_state)
+
+                elif i == "M'":
+                    new_state = self.M_prime(True, new_state)
+
+                elif i == "M2":
+                    new_state = self.M(True, new_state)
+                    new_state = self.M(True, new_state)
+                
+                elif i == "E":
+                    new_state = self.E(True, new_state)
+
+                elif i == "E'":
+                    new_state = self.E_prime(True, new_state)
+
+                elif i == "E2":
+                    new_state = self.E(True, new_state)
+                    new_state = self.E(True, new_state)
+                
+                elif i == "S":
+                    new_state = self.S(True, new_state)
+
+                elif i == "S'":
+                    new_state = self.S_prime(True, new_state)
+
+                elif i == "S2":
+                    new_state = self.S(True, new_state)
+                    new_state = self.S(True, new_state)
+                
+            return new_state
+
+        
+        else:
+            for i in input_arr:
+                if i == "F":
+                    self.F()
+
+                elif i == "F'":
+                    self.F_prime()
+
+                elif i == "F2":
+                    self.F()
+                    self.F()
+                
+                elif i == "B":
+                    self.B()
+
+                elif i == "B'":
+                    self.B_prime()
+
+                elif i == "B2":
+                    self.B()
+                    self.B()
+                
+                elif i == "U":
+                    self.U()
+
+                elif i == "U'":
+                    self.U_prime()
+
+                elif i == "U2":
+                    self.U()
+                    self.U()
+                
+                elif i == "D":
+                    self.D()
+
+                elif i == "D'":
+                    self.D_prime()
+
+                elif i == "D2":
+                    self.D()
+                    self.D()
+                
+                elif i == "R":
+                    self.R()
+
+                elif i == "R'":
+                    self.R_prime()
+
+                elif i == "R2":
+                    self.R()
+                    self.R()
+                
+                elif i == "L":
+                    self.L()
+
+                elif i == "L'":
+                    self.L_prime()
+
+                elif i == "L2":
+                    self.L()
+                    self.L()
+                
+                elif i == "M":
+                    self.M()
+
+                elif i == "M'":
+                    self.M_prime()
+
+                elif i == "M2":
+                    self.M()
+                    self.M()
+                
+                elif i == "E":
+                    self.E()
+
+                elif i == "E'":
+                    self.E_prime()
+
+                elif i == "E2":
+                    self.E()
+                    self.E()
+                
+                elif i == "S":
+                    self.S()
+
+                elif i == "S'":
+                    self.S_prime()
+
+                elif i == "S2":
+                    self.S()
+                    self.S()
+                
+            if return_state:
+                return self.get_curr_state()
+                
