@@ -716,7 +716,25 @@ class cube(object):
         return self.move_list
     
     def string_operation(self, str, prospective=False, return_state=False):
+        """Primary way to operate the "cube". Takes a string input, of selections from the `self.move_list` array separated by spaces, and performs them as moves on the cube. Can take one move as input.
 
+            Args
+            ----
+            str : (str)
+                String of inputs, chosen from the `self.move_list` array, to be performed on the cube.
+
+            prospective : (bool, optional)
+                Determines whether the moves supplied should be performed on the cube (False) or if the function should return a state that the cube would be in if those moves were applied (True). Defaults to False.
+
+            return_state : (bool, optional)
+                Determines whether the state of the cube should be returned after the moves are applied. Only relevant if prospective=False. Defaults to False.
+
+            Returns
+            -------
+             : (float array or None)
+                If prospective or return_state = True, it will return a 1x54 array of floats as the state of the cube. If not, will not return anything.
+        """
+        
         input_arr = str.split(" ")
 
         if prospective:
