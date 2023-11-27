@@ -588,6 +588,7 @@ class cube(object):
 
     def __button_press(self, event, ax):
 
+#region key presses
         if event.key == "f":
             self.F()
             self.move_set.append('F')
@@ -687,6 +688,7 @@ class cube(object):
             self.move_set.append('Z\'')
         else:
             pass
+#endregion
 
         ax.cla()
 
