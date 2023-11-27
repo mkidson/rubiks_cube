@@ -587,11 +587,11 @@ class cube(object):
         self.__visualise_face(vis_state[4], [4, 0], ax)
         self.__visualise_face(vis_state[5], [-4, 0], ax)
 
-        metric = self.calculate_metric()
+        mult = self.calculate_multiplicity(self.curr_state)
 
         plt.xlim(-7.5, 12.5)
         plt.ylim(-10, 10)
-        plt.title(f'$M_m$ = {metric:.5f}')
+        plt.title(f'Multiplicity = {mult}')
         plt.axis('off')
         plt.gca().set_aspect('equal')
 
