@@ -22,6 +22,7 @@ class cube(object):
         self.solved_state = np.concatenate((self.green_face, self.blue_face, self.white_face, self.yellow_face, self.red_face, self.orange_face))
         self.curr_state = np.copy(self.solved_state)
         self.move_set = []
+        self.multiplicity_matrix = np.load('multiplicities_save.npy')
 
 #region matrix definitions
         # now the mess of matrix definitions
@@ -500,6 +501,15 @@ class cube(object):
 
 #endregion
 
+
+    def calculate_multiplicity(self, state):
+        faces = np.split(np.copy(state), 6)
+
+        multiplicity = 0
+        for face in faces:
+            multiplicity += self.multiplicity_matrix[int(face[0]),int(face[1]),int(face[2]),int(face[3]),int(face[4]),int(face[5]),int(face[6]),int(face[7]),int(face[8])]
+
+        return multiplicity
 
     def calculate_metric(self):
         # something about checking for all the entries in the state array, for all places one up/down OR one left/right, how many are the same colour as it. divide that by the number of pieces it's adjacent to. then average that over all pieces. that's your "metric" and all with the same metric are in a macrostate
